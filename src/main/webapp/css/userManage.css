@@ -1,0 +1,56 @@
+.all-user-message{
+   padding:  50px;
+}
+.user-nickname:hover{
+    cursor: pointer;
+    background-color: #e8e8e8;
+}
+.per-user-message{
+    padding: 50px 0 0 200px ;
+}
+.per-user-message p{
+    font-weight: bold;
+    font-size: 15px;
+}
+.per-user-message span{
+    font-weight:500;
+    font-size: 12px;
+}
+.per-user-message span img{
+    width: 55px;
+    height: 55px;
+}
+.per-user-message button{
+    margin: 10px;
+}
+.per-user-message span{
+    margin-left: 20px;
+}
+.per-user-message{
+    display: none;
+}
+.person-modify {
+    margin-left: 50px!important;
+}
+.person-img,.person-video{
+    display: block!important;
+    width: 200px;
+    margin-top: 20px;
+}
+.back{
+   margin:10px 0px 20px 800px !important;
+}
+.status1{
+    font-weight: 500;
+    color: blue;
+}
+.status2{
+    font-weight: 500;
+    color:green;
+}
+.status{
+    color: #ff5400;
+}
+.watch-detail,.watch-doc{
+    margin-right: 10px;
+}

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chudian.mj.mapper.MjproductMapper" >
+  <resultMap id="BaseResultMap" type="org.chudian.mj.bean.Mjproduct" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="picture_id" property="pictureId" jdbcType="INTEGER" />
+    <result column="video_id" property="videoId" jdbcType="INTEGER" />
+    <result column="audio_id" property="audioId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="is_private" property="isPrivate" jdbcType="INTEGER" />
+    <result column="fetch_code" property="fetchCode" jdbcType="VARCHAR" />
+    <result column="production_phase" property="productionPhase" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="make_time" property="makeTime" jdbcType="TIMESTAMP" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="keepword1" property="keepword1" jdbcType="VARCHAR" />
+    <result column="keepword2" property="keepword2" jdbcType="VARCHAR" />
+    <result column="keepword3" property="keepword3" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="clicktimes" property="clicktimes" jdbcType="INTEGER" />
+    <result column="threed_id" property="threedId" jdbcType="INTEGER" />
+    <result column="ar_type" property="arType" jdbcType="INTEGER" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="web_video_url" property="webVideoUrl" jdbcType="VARCHAR" />
+	<association property="videoObj" column="video_id" javaType="Video" select="org.chudian.mj.mapper.VideoMapper.selectByPrimaryKey"/>
+    <association property="pictureObj" column="picture_id" javaType="Picture" select="org.chudian.mj.mapper.PictureMapper.selectByPrimaryKey"/>
+    <association property="audioObj" column="audio_id" javaType="Audio" select="org.chudian.mj.mapper.AudioMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, picture_id, video_id, audio_id, user_id, industry, is_private, fetch_code, production_phase,
+    status, make_time, publish_time, description, keepword1, keepword2, keepword3, title,
+    createtime, clicktimes, threed_id, ar_type, web_url, web_video_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from mjproduct
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mjproduct
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.chudian.mj.bean.Mjproduct" >
+    insert into mjproduct (id, picture_id, video_id,
+    audio_id, user_id, industry,
+    is_private, fetch_code, production_phase,
+    status, make_time, publish_time,
+    description, keepword1, keepword2,
+    keepword3, title, createtime,
+    clicktimes, threed_id, ar_type,
+    web_url, web_video_url)
+    values (#{id,jdbcType=INTEGER}, #{pictureId,jdbcType=INTEGER}, #{videoId,jdbcType=INTEGER},
+    #{audioId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{industry,jdbcType=VARCHAR},
+    #{isPrivate,jdbcType=INTEGER}, #{fetchCode,jdbcType=VARCHAR}, #{productionPhase,jdbcType=INTEGER},
+    #{status,jdbcType=INTEGER}, #{makeTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP},
+    #{description,jdbcType=VARCHAR}, #{keepword1,jdbcType=VARCHAR}, #{keepword2,jdbcType=VARCHAR},
+    #{keepword3,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+    #{clicktimes,jdbcType=INTEGER}, #{threedId,jdbcType=INTEGER}, #{arType,jdbcType=INTEGER},
+    #{webUrl,jdbcType=VARCHAR}, #{webVideoUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.chudian.mj.bean.Mjproduct" >
+    insert into mjproduct
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pictureId != null" >
+        picture_id,
+      </if>
+      <if test="videoId != null" >
+        video_id,
+      </if>
+      <if test="audioId != null" >
+        audio_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="isPrivate != null" >
+        is_private,
+      </if>
+      <if test="fetchCode != null" >
+        fetch_code,
+      </if>
+      <if test="productionPhase != null" >
+        production_phase,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="makeTime != null" >
+        make_time,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="keepword1 != null" >
+        keepword1,
+      </if>
+      <if test="keepword2 != null" >
+        keepword2,
+      </if>
+      <if test="keepword3 != null" >
+        keepword3,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="clicktimes != null" >
+        clicktimes,
+      </if>
+      <if test="threedId != null" >
+        threed_id,
+      </if>
+      <if test="arType != null" >
+        ar_type,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="webVideoUrl != null" >
+        web_video_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pictureId != null" >
+        #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=INTEGER},
+      </if>
+      <if test="audioId != null" >
+        #{audioId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null" >
+        #{isPrivate,jdbcType=INTEGER},
+      </if>
+      <if test="fetchCode != null" >
+        #{fetchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPhase != null" >
+        #{productionPhase,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="makeTime != null" >
+        #{makeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword1 != null" >
+        #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        #{keepword3,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clicktimes != null" >
+        #{clicktimes,jdbcType=INTEGER},
+      </if>
+      <if test="threedId != null" >
+        #{threedId,jdbcType=INTEGER},
+      </if>
+      <if test="arType != null" >
+        #{arType,jdbcType=INTEGER},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="webVideoUrl != null" >
+        #{webVideoUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.chudian.mj.bean.Mjproduct" >
+    update mjproduct
+    <set >
+      <if test="pictureId != null" >
+        picture_id = #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="videoId != null" >
+        video_id = #{videoId,jdbcType=INTEGER},
+      </if>
+      <if test="audioId != null" >
+        audio_id = #{audioId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null" >
+        is_private = #{isPrivate,jdbcType=INTEGER},
+      </if>
+      <if test="fetchCode != null" >
+        fetch_code = #{fetchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPhase != null" >
+        production_phase = #{productionPhase,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="makeTime != null" >
+        make_time = #{makeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword1 != null" >
+        keepword1 = #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        keepword2 = #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        keepword3 = #{keepword3,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clicktimes != null" >
+        clicktimes = #{clicktimes,jdbcType=INTEGER},
+      </if>
+      <if test="threedId != null" >
+        threed_id = #{threedId,jdbcType=INTEGER},
+      </if>
+      <if test="arType != null" >
+        ar_type = #{arType,jdbcType=INTEGER},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="webVideoUrl != null" >
+        web_video_url = #{webVideoUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.chudian.mj.bean.Mjproduct" >
+    update mjproduct
+    set picture_id = #{pictureId,jdbcType=INTEGER},
+      video_id = #{videoId,jdbcType=INTEGER},
+      audio_id = #{audioId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      industry = #{industry,jdbcType=VARCHAR},
+      is_private = #{isPrivate,jdbcType=INTEGER},
+      fetch_code = #{fetchCode,jdbcType=VARCHAR},
+      production_phase = #{productionPhase,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      make_time = #{makeTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      keepword1 = #{keepword1,jdbcType=VARCHAR},
+      keepword2 = #{keepword2,jdbcType=VARCHAR},
+      keepword3 = #{keepword3,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      clicktimes = #{clicktimes,jdbcType=INTEGER},
+      threed_id = #{threedId,jdbcType=INTEGER},
+      ar_type = #{arType,jdbcType=INTEGER},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      web_video_url = #{webVideoUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPictureid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM mjproduct
+    WHERE picture_id = #{pictureId}
+  </select>
+
+
+
+  <select id="isExistsByVideoId" parameterType="java.lang.Integer" resultType="boolean">
+    SELECT
+    COUNT(id) FROM mjproduct WHERE video_id =
+    #{videoId}
+  </select>
+
+  <select id="isExistsByPictureId" parameterType="java.lang.Integer" resultType="boolean">
+    SELECT
+    COUNT(id) FROM mjproduct WHERE picture_id =
+    #{pictureId}
+  </select>
+
+  <update id="updatetrainstatus">
+  	UPDATE mjproduct SET status=0;
+  </update>
+  <update id="updateclicktimesbyid" parameterType="java.lang.Integer" >
+  	UPDATE mjproduct SET clicktimes=clicktimes+1 where id = #{id,jdbcType=INTEGER};
+  </update>
+  <select id="queryProducts" parameterType="org.chudian.mj.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM mjproduct
+    <include refid="where_with_condition" /> ORDER BY status DESC, createtime DESC
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+  
+  <select id="queryProductsByUserid" parameterType="org.chudian.mj.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM mjproduct
+    where user_id = #{parameters.userId} ORDER BY status DESC, createtime DESC
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+
+  <select id="countProducts" parameterType="org.chudian.mj.common.QueryBase" resultType="long">
+    SELECT COUNT(id) FROM mjproduct
+    <include refid="where_with_condition" />
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.id != null and parameters.id != '' ">AND id = #{parameters.id}
+      </if>
+      <if test="parameters.userId != null and parameters.userId != '' ">AND user_id = #{parameters.userId}
+      </if>
+    </trim>
+  </sql>
+</mapper>

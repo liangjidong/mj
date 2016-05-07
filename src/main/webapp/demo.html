@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic DataGrid - jQuery EasyUI Demo</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/img_manage.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/jQuery.easyui.js"></script>
+    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+</head>
+<body>
+<!--<form>
+    <p>Your image: <input type="file" name="file" id="file" accept="image/gif,image/png,image/jpeg" class="btn btn-info btn-sm" /></p>
+    <button class="submitData submit btn btn-info btn-sm" type="button">上传图片</button>
+</form>-->
+
+<div class="table-wrapper">
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th width="320px">图片</th>
+            <th >图片名称</th>
+            <th>上传时间</th>
+            <th>图片ID</th>
+            <th >图片质量</th>
+            <th >图片格式</th>
+          <!--  <th>编辑</th>
+            <th >视频ID</th>-->
+
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div id="text"></div>
+<div class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">提示</h4>
+      </div>
+      <div class="modal-body">
+        <p>图片上传成功!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary be-sure" style="width:100%;">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+    $(function() {
+        var currentPage = 1;
+         $(".be-sure").click(function(){
+            location.reload();
+        });
+        $(".submitData").click(function(){
+            var imgPath = $("#file").val();
+            if (imgPath == "") {
+                alert("请选择上传图片！");
+                return false;
+            }
+            ajaxFileUpload1();
+            return false;
+        });
+        
+        function ajaxFileUpload1() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: 'api/picture/upload2', //用于文件上传的服务器端请求地址
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: 'file', //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (data) {
+                        if(data.status == 13){
+                            alert("登录失效，请重新登录");
+                            window.parent.location.href = "login.html";
+                            //location.href = "login.html";
+                        }
+                        if (data.status == 0) {
+                            $(".modal").modal();
+                        }
+                        if (data.status == 1) {
+                            alert("图片上传失败，图片"+data.message);
+                        }
+                    }
+                }
+            )
+            return false;
+        }
+
+        var userID = sessionStorage.userId;
+        if(!userID) {
+            location.href = "/mj/login.html";
+        }
+        var btn = "<div class='btn-group'><button class=' btn btn-primary  btn-sm'>选择链接视频</button>"
+             btn +="<button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>"
+             btn +="<span class='caret'></span></button><ul class='dropdown-menu'> </ul></div>"
+        var format = function (time, format){
+            var t = new Date(time);
+            var tf = function(i){return (i < 10 ? '0' : '') + i};
+            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function(a){
+                switch(a){
+                    case 'yyyy':
+                        return tf(t.getFullYear());
+                        break;
+                    case 'MM':
+                        return tf(t.getMonth() + 1);
+                        break;
+                    case 'mm':
+                        return tf(t.getMinutes());
+                        break;
+                    case 'dd':
+                        return tf(t.getDate());
+                        break;
+                    case 'HH':
+                        return tf(t.getHours());
+                        break;
+                    case 'ss':
+                        return tf(t.getSeconds());
+                        break;
+                }
+            })
+        }
+        getProductsList(currentPage);
+        function getProductsList(currentPage){
+            $.ajax({
+                type:"GET",
+                dataType:"json",
+                url:"api/picture/query?userId="+userID+"&currentPage="+currentPage,
+                success:function(data){
+                    if(data.status == 13){
+                        alert("登录失效，请重新登录");
+                        window.parent.location.href = "login.html";
+                        //location.href = "login.html";
+                    }
+                    if(data.status==0) {
+                        $(".pagination").empty().remove();
+                        var picturejson = eval(data.body);
+                        var strHTML ="";
+
+                        $.each(picturejson,function(index,value){
+                            var photoName = value.name?value.name:"";
+                            var photoQuality = value.quality?value.quality:"";
+                            var photoVideoId = value.videoId?value.videoId:"";
+                           strHTML += "<tr><td><img width='170px' height='100px' src="+picturejson[index].url+"></td>";
+                           strHTML += "<td>" +photoName+"</td>";
+                           strHTML += "<td>" + format(picturejson[index].createtime, 'yyyy-MM-dd HH:mm:ss')+"</td>";
+                           strHTML +="<td class='pictureid'>" +picturejson[index].id+"</td>";
+                           strHTML += "<td>" +photoQuality +"</td>";
+                           strHTML += "<td>" +picturejson[index].type +"</td>";
+                           /*strHTML += "<td id="+index+">" +btn +"</td>";
+                           strHTML += "<td class='videotype'>" + photoVideoId +"</td>";*/
+
+                           $("tbody").html(strHTML);
+                         })
+                        currentPage = data.currentPage;
+                        pagination(data.currentPage,data.totalPage);
+
+                /*        $.ajax({
+                            type: "GET",
+                            dataType: "json",
+                            url: "api/video/query.do?userId="+userID+"&currentPage=1",
+                            success: function (data) {
+                                if (data.status == 0) {
+                                    
+                                    var videojson = eval(data.body);
+                                    var ulHTML = "";
+                                    $.each(videojson, function (index) {
+                                        ulHTML += "<li id="+index+"'>" + videojson[index].name + "</li>";
+                                        $(".dropdown-menu").html(ulHTML);
+                                    })
+                                    
+                                }
+                             $(document).on("click",".dropdown-menu li",function () {
+                                    $(this).parents(".dropdown-menu").css("display","none");
+                                    var pIndex = $(this).parents("tr").children(".pictureid").html();
+                                    var pIdx = parseInt(pIndex);
+                                    var vIndex = $(this).attr("id");
+                                    var vIdx = parseInt(vIndex);
+                                     var videoId = videojson[vIdx].id;
+                                    $(this).parents("tr").children(".videotype").html(videojson[vIdx].id);
+                                    $.ajax({
+                                        type: "PATCH",
+                                        url: "api/picture/addvideo?pictureId="+pIdx+"&videoId="+videojson[vIdx].id
+                                    });
+
+                                })
+                            },
+                            error: function (data) {
+                                alert("ajax获取失败");
+                            }
+                        })*/
+                        $(document).on("click",".dropdown-toggle",function() {
+                            $(this).parents(".btn-group").children("ul").css("display","block");
+                        })
+                    }
+                },
+                error:function(data){
+                    alert("ajax获取失败");
+                }
+           })
+        }
+        
+        function pagination(currentPage,totalPage){
+            var htmlCode = '<nav style="padding-left:60%;margin-top:10px;"><ul class="pagination">';
+            if(currentPage == 1){
+                htmlCode += '<li class="disabled pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+            }else{
+                htmlCode += '<li class="pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+            }
+            for(var i=0;i<Math.ceil(totalPage/5);i++){
+                if(i*5<currentPage && (i+1)*5>=currentPage){
+                    for(var j=i*5+1;j<=totalPage && j<=(i+1)*5;j++){
+                        if(currentPage == j){
+                            htmlCode += '<li class="page-number active"><a href="javascript:;">'+j+'</a></li>';
+                        }else{
+                            htmlCode += '<li class="page-number"><a href="javascript:;">'+j+'</a></li>';
+                        }
+                    }
+                    break;
+                }
+            }
+            if(currentPage == totalPage){
+                htmlCode += '<li class="disabled next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
+            }else{
+                htmlCode += '<li class="next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
+            }
+            $(".table-wrapper").append(htmlCode);
+        }
+        $(document).on("click",".pre",function(){
+            if(!$(this).hasClass("disabled")){
+                currentPage--;
+                getProductsList(currentPage);
+            }
+        });
+        $(document).on("click",".next",function(){
+            if(!$(this).hasClass("disabled")){
+                currentPage++;
+                getProductsList(currentPage);
+            }
+        });
+        $(document).on("click",".page-number",function(){
+            currentPage = parseInt($(this).find("a").html());
+            getProductsList(currentPage);
+        });
+    })
+</script>
+</body>
+</html>

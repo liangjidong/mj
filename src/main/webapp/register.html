@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/register.css"/>
+
+</head>
+<body>
+    <div id="header">
+        <div class="header-content">
+            <span class="fa fa-cloud logo-icon"></span>
+            <span class="logo-text">后台管理系统</span>
+            <span class="fa fa-pagelines logo-subicon"></span>
+        </div>
+    </div>
+    <div class="container">
+        <form class="register form-horizontal">
+            <h2 id="form-h2">注册</h2>
+            <div class="clear-float"></div>
+            <div class="form-group ">
+                <label for="loginName" class="col-sm-1 control-label"><span class="fa fa-user"></span></label>
+                <div class="col-sm-10 ">
+                    <input type="text" class="form-control input-lg " id="loginName" placeholder="登陆名">
+                    <span class="icon-status" aria-hidden="true"></span>
+                </div>
+                <span class="text-status"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="col-sm-1 control-label"><span class="fa fa-lock"></span></label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control input-lg" id="password" placeholder="设置密码">
+                    <span class="icon-status" aria-hidden="true"></span>
+                </div>
+                <span class="text-status"></span>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="col-sm-1 control-label"><span class="fa fa-lock"></span></label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control input-lg" id="confirmPassword" placeholder="确认密码">
+                    <span class="icon-status" aria-hidden="true"></span>
+                </div>
+                <span class="text-status"></span>
+            </div>
+            <div class="form-group code">
+                <div class="col-sm-5"><label>验证码：</label> <input type="text" class="form-control input-lg " id="confirm-code" ></div>
+                <div class="col-sm-3">
+                    <i class="refresh-code">看不清，换一张</i>
+                    <img class="code-image" src="api/user/identifyPic" alt=""/>
+                </div>
+                </label>
+            </div>
+            <button class="btn btn-primary register-btn" type="button">注册</button>
+        </form>
+    </div>
+
+    <!--弹出框-->
+ <div class="modal" id="mymodal">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                 <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-success" onclick="location.href='login.html';" >返回登陆界面</button>
+                </div>
+    </div>
+ </div>
+</div>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
+</body>
+</html>

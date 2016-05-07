@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>视频管理</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/img_manage.css" />
+    <link rel="stylesheet" type="text/css" href="css/productManage.css" />
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jQuery.easyui.js"></script>
+</head>
+<body>
+<button id="check-picture" class="btn btn-success btn-sm">训练图片</button>
+<div class="allproduct table-wrapper">
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th >预览</th>
+            <th>产品ID</th>
+            <th>产品名称</th>
+            <th>产品描述</th>
+            <th>点击量</th>
+            <th>创建时间</th>
+            <th>是否训练</th>
+            <th>产品预览</th>
+            <th>图片ID</th>
+            <th>视频ID</th>
+            <th>选择链接视频</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div id="product-message" style="display: none">
+ <table class="table table-bordered table-hover">
+     <thead>
+        <tr>
+            <th class="success" colspan="2">
+                产品基本信息 <span id="deletctView" class="fa fa-times fa-lg" style="color: red;float: right;margin-right: 30px"></span>
+            </th>
+        </tr>
+     </thead>
+     <tbody> </tbody>
+ </table>
+</div>
+<!--模态框-->
+<div class="modal" id="train-model" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--预览图片 模态框-->
+<div class="modal" id="photo-model" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">预览图片</h4>
+            </div>
+            <div class="modal-body">
+                <p><img class="pre-WatchPhoto" src=' ' alt=' '/></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--预览图片 模态框-->
+<div class="modal" id="video-model" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">预览视频</h4>
+            </div>
+            <div class="modal-body">
+                <p class="pre-WatchVideo"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改产品信息 模态框-->
+<div class="modal" id="modify-product" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">修改产品信息</h4>
+            </div>
+            <div class="modal-body change-product"  >
+                  <form class="form-horizontal " style="margin: 10px" >
+                    <div class="form-group product-ID" >
+                        <label for="productId" class="col-sm-3 control-label">产品名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control input-lg" id="productId" placeholder=" ">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                    <div class="form-group product-MES">
+                        <label for="productMes" class="col-sm-3 control-label">产品描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control input-lg" id="productMes" placeholder=" ">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                    <button class="btn btn-success confirm-change" style="margin:20px 0 0 150px; width: 200px">确认</button>
+                  </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-default"  id="closeBtn" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/productManage.js"></script>
+</body>
+</html>

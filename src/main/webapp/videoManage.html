@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>视频管理</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/img_manage.css" />
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jQuery.easyui.js"></script>
+</head>
+<body>
+<div class="table-wrapper">
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th >视频名称</th>
+            <th>视频ID</th>
+            <th>上传时间</th>
+            <th>视频大小</th>
+            <th>原地址</th>
+            <th>最终地址</th>
+            <th>下载方式</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div id="text"></div>
+<script>
+    $(function() {
+        var currentPage = 1;
+        var userID = sessionStorage.userId;
+        if(!userID) {
+            location.href = "/mj/login.html";
+        }
+        var format = function (time, format){
+            var t = new Date(time);
+            var tf = function(i){return (i < 10 ? '0' : '') + i};
+            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function(a){
+                switch(a){
+                    case 'yyyy':
+                        return tf(t.getFullYear());
+                        break;
+                    case 'MM':
+                        return tf(t.getMonth() + 1);
+                        break;
+                    case 'mm':
+                        return tf(t.getMinutes());
+                        break;
+                    case 'dd':
+                        return tf(t.getDate());
+                        break;
+                    case 'HH':
+                        return tf(t.getHours());
+                        break;
+                    case 'ss':
+                        return tf(t.getSeconds());
+                        break;
+                }
+            })
+        }
+        getList(currentPage);
+        function getList(currentPage){
+            $.ajax({
+                type:"GET",
+                dataType:"json",
+                url:"api/video/query?userId="+userID+"&currentPage="+currentPage,
+                success:function(data) {
+                    if (data.status == 0) {
+                        $(".pagination").empty().remove();
+                        var json = eval(data.body);
+                        var strHTML = "";
+                        $.each(json, function (index,value) {
+                            var videoSize = value.size?value.size:0;
+                            var videoUploadWay = value.uploadWay?value.uploadWay:"";
+                            strHTML += "<tr><td>" + json[index].name + "</td>";
+                            strHTML += "<td>" + json[index].id + "</td>";
+                            strHTML += "<td>" + format(json[index].createtime, 'yyyy-MM-dd HH:mm:ss') + "</td>";
+                            strHTML += "<td>" + videoSize + "</td>";
+                            strHTML += "<td>" + json[index].originUrl + "</td>";
+                            strHTML += "<td>" + json[index].finalUrl + "</td>";
+                            strHTML += "<td>" + videoUploadWay + "</td></tr>";
+                            $("tbody").html(strHTML);
+                        })
+                        currentPage = data.currentPage;
+                        pagination(data.currentPage,data.totalPage);
+                    }
+                }
+            })
+        }
+        function pagination(currentPage,totalPage){
+            var htmlCode = '<nav style="padding-left:60%;margin-top:10px;"><ul class="pagination">';
+            if(currentPage == 1){
+                htmlCode += '<li class="disabled pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+            }else{
+                htmlCode += '<li class="pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+            }
+            for(var i=0;i<Math.ceil(totalPage/5);i++){
+                if(i*5<currentPage && (i+1)*5>=currentPage){
+                    for(var j=i*5+1;j<=totalPage && j<=(i+1)*5;j++){
+                        if(currentPage == j){
+                            htmlCode += '<li class="page-number active"><a href="javascript:;">'+j+'</a></li>';
+                        }else{
+                            htmlCode += '<li class="page-number"><a href="javascript:;">'+j+'</a></li>';
+                        }
+                    }
+                    break;
+                }
+            }
+            if(currentPage == totalPage){
+                htmlCode += '<li class="disabled next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
+            }else{
+                htmlCode += '<li class="next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
+            }
+            $(".table-wrapper").append(htmlCode);
+        }
+        $(".pre").live("click",function(){
+            if(!$(this).hasClass("disabled")){
+                currentPage--;
+                getList(currentPage);
+            }
+        });
+        $(".next").live("click",function(){
+            if(!$(this).hasClass("disabled")){
+                currentPage++;
+                getList(currentPage);
+            }
+        });
+        $(".page-number").live("click",function(){
+            currentPage = parseInt($(this).find("a").html());
+            getList(currentPage);
+        });
+        
+    })
+</script>
+</body>
+</html>

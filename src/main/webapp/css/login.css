@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+html,body {
+    height:100%;
+}
+body {
+    background: #5accc7;
+    font-family:"微软雅黑";
+}
+/*公共脚部*/
+.footer {
+    height:58px;
+    background: #5accc7;
+}
+.footer-top {
+    height:15px;
+    background:#545454;
+}
+.footer-link {
+    width:1300px;
+    margin:0 auto;
+    margin-top:35px;
+    color:#545454;
+    font-size:18px;
+    padding:0 50px;
+}
+.link {
+    float:right;
+}
+.footer-link a {
+    color:#545454;
+    font-size:18px;
+    margin: 0 10px;
+}
+.footer-link a:hover {
+    color:#FFF;
+}
+/*输入框状态**/
+.icon-status {
+    float:right;
+    margin-right:10px;
+    margin-top:-35px;
+    font-size:20px;
+}
+.form-group {
+    position:relative;
+}
+.container {
+    width:1300px;
+    margin:0 auto;
+    background-color: #f1f1f1;
+}
+.login-top {
+    height:100px;
+}
+/*表单部分*/
+.login {
+    height:460px;
+}
+.login-form {
+    width:560px;
+    height:100%;
+    background:#FFF;
+    margin-left:370px;
+    border-radius:4px;
+    padding:10px 20px 20px;
+    font-size:16px;
+    opacity:1;
+}
+.login-form label {
+    font-size:20px;
+    color:#CCC;
+    margin-top:10px;
+}
+#form-h2 {
+    margin-top:0;
+    width:150px;
+    float:left;
+    *margin-bottom:30px;
+}
+.clear-float {
+    clear:both;
+}
+.form-group {
+    margin-top:25px;
+    height:46px;
+}
+.form-group input {
+    border:0;
+    *width:440px !important;
+    *height:26px !important;
+    _height:26px;
+}
+.sumbit {
+    width:478px;
+    margin-left:25px;
+    background:#6699ff;
+    font-size:20px;
+    color:#FFF;
+    margin-top:20px;
+    padding:15px 0;
+}
+
+/*表单部分结束*/
+.login-footer {
+    height:246px;
+}
+.login-chose {
+    text-align:center;
+    font-size:16px;
+    margin-bottom:0;
+}
+.login-chose a {
+    font-weight:bolder;
+}
+.icon-status {
+    float:right;
+    margin-right:10px;
+    margin-top:-35px;
+    font-size:20px;
+}
+.form-group {
+    position:relative;
+}
+.close {
+    width:21px;
+}
+.refresh-code{
+    font-size: 13px;
+    background-color: #f0ad4e;
+    display: inline-block;
+    width: 98px;
+    height: 19px;
+    position: relative;
+    left: 120px;
+    top: 55px;
+    cursor: pointer;
+}
+.code-image{
+    width: 91px;
+    height: 52px;
+    margin-top: 10px;
+}
+.to-register{
+   position: relative;
+   left: 350px;
+   top: 15px;
+}
+.input-lg {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}

@@ -1,0 +1,10 @@
+.productInfo{
+}
+.productInfo>h1{
+    text-align:center;
+    padding:20px 0;
+}
+.productInfo>ul{
+    width:800px;
+    margin:0 auto;
+}

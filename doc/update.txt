@@ -1,0 +1,2 @@
+ALTER TABLE `picture`
+ADD COLUMN `track_url`  varchar(100) NULL AFTER `reality_type`;

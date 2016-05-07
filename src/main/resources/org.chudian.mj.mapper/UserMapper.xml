@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chudian.mj.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="org.chudian.mj.bean.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="adress" property="adress" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="payment_information" property="paymentInformation" jdbcType="VARCHAR" />
+    <result column="qq_number" property="qqNumber" jdbcType="VARCHAR" />
+    <result column="keepword1" property="keepword1" jdbcType="VARCHAR" />
+    <result column="keepword2" property="keepword2" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="keepword3" property="keepword3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, group_id, head_img, phone_number, nick_name, name, adress, password, role, status, 
+    payment_information, qq_number, keepword1, keepword2, email, keepword3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where name = #{VARCHAR,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.chudian.mj.bean.User" >
+    insert into user (id, group_id, head_img, 
+      phone_number, nick_name, name, 
+      adress, password, role, 
+      status, payment_information, qq_number, 
+      keepword1, keepword2, email, 
+      keepword3)
+    values (#{id,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{headImg,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{adress,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{paymentInformation,jdbcType=VARCHAR}, #{qqNumber,jdbcType=VARCHAR}, 
+      #{keepword1,jdbcType=VARCHAR}, #{keepword2,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{keepword3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.chudian.mj.bean.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paymentInformation != null" >
+        payment_information,
+      </if>
+      <if test="qqNumber != null" >
+        qq_number,
+      </if>
+      <if test="keepword1 != null" >
+        keepword1,
+      </if>
+      <if test="keepword2 != null" >
+        keepword2,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="keepword3 != null" >
+        keepword3,
+      </if> 
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paymentInformation != null" >
+        #{paymentInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNumber != null" >
+        #{qqNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword1 != null" >
+        #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        #{keepword3,jdbcType=VARCHAR},
+      </if> 
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.chudian.mj.bean.User" >
+    update user
+    <set >
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paymentInformation != null" >
+        payment_information = #{paymentInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNumber != null" >
+        qq_number = #{qqNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword1 != null" >
+        keepword1 = #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        keepword2 = #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        keepword3 = #{keepword3,jdbcType=VARCHAR},
+      </if> 
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.chudian.mj.bean.User" >
+    update user
+    set group_id = #{groupId,jdbcType=INTEGER},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      payment_information = #{paymentInformation,jdbcType=VARCHAR},
+      qq_number = #{qqNumber,jdbcType=VARCHAR},
+      keepword1 = #{keepword1,jdbcType=VARCHAR},
+      keepword2 = #{keepword2,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      keepword3 = #{keepword3,jdbcType=VARCHAR} 
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="queryByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user where name = #{name}
+  </select>
+
+  <select id="isUserExists" parameterType="User" resultType="boolean">
+    SELECT
+    COUNT(id) FROM user WHERE id =
+    #{id}
+  </select>
+
+  <select id="queryUsers" parameterType="org.chudian.mj.common.QueryBase" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM user
+    <include refid="where_with_condition" />
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+
+  <select id="countUsers" parameterType="org.chudian.mj.common.QueryBase" resultType="long">
+    SELECT COUNT(id) FROM user
+
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.id != null and parameters.id != '' ">AND id = #{parameters.id}
+      </if>
+      <if test="parameters.name != null and parameters.name != '' ">AND name = #{parameters.name}
+      </if>
+    </trim>
+  </sql>
+</mapper>

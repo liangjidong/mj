@@ -1,0 +1,154 @@
+/**全局样式**/
+html,body,ul,li,div,span,ol,table,tr,td,th,span,p,a,input,label,textarea,select,button {
+    margin:0;
+    padding:0;
+    border:0;
+}
+body {
+    font-family:"Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+    background:#e7e8eb;
+    font-size:14px;
+    color:#404040;
+    max-width:1400px;
+    margin:0 auto;
+}
+/**头部*/
+#header {
+    background:#FFF;
+    height:60px;
+    border-top: solid 5px #44b549;
+}
+.header-content {
+    width:1200px;
+    margin:0 auto;
+}
+.logo-icon {
+    display:block;
+    float:left;
+    margin-top:10px;
+    color:#d9d9da;
+    font-size:35px;
+}
+.logo-text {
+    display:block;
+    float:left;
+    margin-top:12px;
+    margin-left:10px;
+    font-size:23px;
+    color:#969696;
+}
+.logo-subicon {
+    display:block;
+    float:left;
+    background:#d9d9da;
+    color:#FFF;
+    padding:1px 7px;
+    margin-top:18px;
+    font-size: 12px;
+    margin-left:2px;
+    border-radius: 20px;
+}
+html,body {
+    height:100%;
+    font-size:16px;
+}
+.container {
+    width:700px;
+    margin:50px auto;
+    height:650px;
+    background-color: #f2f2f2;
+}
+.register {
+    width:559px;
+    height:515px;
+    padding:20px;
+    margin: 40px auto 0;
+}
+.register label {
+    font-size:20px;
+    color:#CCC;
+}
+#form-h2 {
+    float:left;
+    width:200px;
+    margin:0;
+    color:#44b549;
+}
+.clear-float {
+    clear:both;
+}
+.register .form-group {
+    margin-top:20px;
+}
+.form-group input {
+    border:0;
+}
+.register-btn {
+    width:510px;
+    height:56px;
+    line-height:46px;
+    font-size:20px;
+    color:#FFF;
+    margin-top:20px;
+}
+#mymodal{
+    margin-top: 290px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+html,body {
+    height:100%;
+}
+body {
+    background:#FFF;
+    font-family:"微软雅黑";
+}
+
+.link {
+    float:right;
+}
+.footer-link a {
+    color:#545454;
+    font-size:18px;
+    margin: 0 10px;
+}
+.footer-link a:hover {
+    color:#FFF;
+}
+/*输入框状态**/
+.icon-status {
+    float:right;
+    margin-right:10px;
+    margin-top:-35px;
+    font-size:20px;
+}
+.form-group {
+    position:relative;
+}
+.text-status {
+    position:absolute;
+    top:15px;
+    width:200px;
+    font-size:14px;
+    color:red;
+}
+
+.refresh-code{
+    font-size: 13px;
+    background-color: #f0ad4e;
+    display: inline-block;
+    width: 98px;
+    height: 19px;
+    position: relative;
+    left: 110px;
+    top: 50px;
+    cursor: pointer;
+}
+.code-image{
+    width: 91px;
+    height: 52px;
+}
+

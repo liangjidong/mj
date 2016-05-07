@@ -1,0 +1,141 @@
+一、手动绘制验证码：
+	1.绘制背景
+	2.绘制一些干扰的线
+	3.绘制字母数字（A-Z（不区分大小写） 0-9）并且要对这些字母数字进行适当的旋转放缩
+
+
+二、使用kaptcha 验证码组件
+(1)kaptcha 是一个验证码生成工具。你可以生成各种样式的验证码，因为它是可配置的。
+   kaptcha工作的原理是调 com.google.code.kaptcha.servlet.KaptchaServlet，生成一个图片。
+          同时将生成的验证码字符串放到 HttpSession中。
+	kaptcha可以方便的配置 :
+	kaptcha.border  是否有边框  默认为true  我们可以自己设置yes，no   
+	kaptcha.border.color   边框颜色   默认为Color.BLACK   
+	kaptcha.border.thickness  边框粗细度  默认为1  
+	kaptcha.producer.impl   验证码生成器  默认为DefaultKaptcha   
+	kaptcha.textproducer.impl   验证码文本生成器  默认为DefaultTextCreator   
+	kaptcha.textproducer.char.string   验证码文本字符内容范围  默认为abcde2345678gfynmnpwx   
+	kaptcha.textproducer.char.length   验证码文本字符长度  默认为5  
+	kaptcha.textproducer.font.names    验证码文本字体样式  默认为new Font("Arial", 1, fontSize), new Font("Courier", 1, fontSize)   
+	kaptcha.textproducer.font.size   验证码文本字符大小  默认为40  
+	kaptcha.textproducer.font.color  验证码文本字符颜色  默认为Color.BLACK   
+	kaptcha.textproducer.char.space  验证码文本字符间距  默认为2  
+	kaptcha.noise.impl    验证码噪点生成对象  默认为DefaultNoise   
+	kaptcha.noise.color   验证码噪点颜色   默认为Color.BLACK   
+	kaptcha.obscurificator.impl   验证码样式引擎  默认为WaterRipple   
+	kaptcha.word.impl   验证码文本字符渲染   默认为DefaultWordRenderer   
+	kaptcha.background.impl   验证码背景生成器   默认为DefaultBackground   
+	kaptcha.background.clear.from   验证码背景颜色渐进   默认为Color.LIGHT_GRAY   
+	kaptcha.background.clear.to   验证码背景颜色渐进   默认为Color.WHITE   
+	kaptcha.image.width   验证码图片宽度  默认为200  
+	kaptcha.image.height  验证码图片高度  默认为50 
+	 下面一个简单的实例：
+	1.首先去官网下载jar:http://code.google.com/p/kaptcha/
+	2.建立一个web项目，导入kaptcha-2.3.jar到环境变量中。
+	3.配置web.xml文件
+	    <servlet>  
+	      <servlet-name>Kaptcha</servlet-name>  
+	      <servlet-class>  
+	       com.google.code.kaptcha.servlet.KaptchaServlet  
+	      </servlet-class>  
+	      <init-param>  
+	       <description>  
+	        Border around kaptcha. Legal values are yes or no.  
+	       </description>  
+	       <param-name>kaptcha.border</param-name>  
+	       <param-value>no</param-value>  
+	      </init-param>  
+	      <init-param>  
+	       <param-name>kaptcha.textproducer.font.size</param-name>  
+	       <param-value>45</param-value>  
+	      </init-param>  
+	      <init-param>  
+	       <param-name>kaptcha.textproducer.char.string</param-name>  
+	       <param-value>abcdefnmnwx235678ABCDEFGHKQRSTX</param-value>  
+	      </init-param>  
+	      <init-param>  
+	       <description>  
+	        Ending background color. Legal values are r,g,b.  
+	       </description>  
+	       <param-name>kaptcha.background.clear.from</param-name>  
+	       <param-value>196,229,248</param-value>  
+	      </init-param>  
+	      <init-param>  
+	       <description>  
+	        Ending background color. Legal values are r,g,b.  
+	       </description>  
+	       <param-name>kaptcha.background.clear.to</param-name>  
+	       <param-value>196,229,248</param-value>  
+	      </init-param>  
+	      <!-- 设置字体个数 -->  
+	      <init-param>  
+	       <param-name>kaptcha.textproducer.char.length</param-name>  
+	       <param-value>5</param-value>  
+	      </init-param>  
+	     </servlet>  
+	     <servlet-mapping>  
+	      <servlet-name>Kaptcha</servlet-name>  
+	      <url-pattern>/kaptcha.jpg</url-pattern>  
+	     </servlet-mapping>  
+	jsp页面
+	    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">       
+	    <html>       
+	        <head>       
+	            <%@ page language="java" contentType="text/html; charset=UTF-8"%>       
+	            <meta http-equiv="Content-Type" content="text/html; charset=UTF-">       
+	            <title>Kaptcha Example</title>       
+	            <mce:script type="text/javascript" src="js/jquery-1.3.2.js" mce_src="js/jquery-1.3.2.js"></mce:script>       
+	        </head>       
+	        <body>       
+	            Enter in the       
+	            <a href="http://code.google.com/p/kaptcha/" mce_href="http://code.google.com/p/kaptcha/">Kaptcha</a> to see if it       
+	            matches what is stored in the session attributes.       
+	            <table>       
+	                <tr>       
+	                    <td>       
+	                        <img src="Kaptcha.jpg" mce_src="Kaptcha.jpg" id="kaptchaImage" />       
+	                        <mce:script type="text/javascript"><!--       
+	    $('#kaptchaImage').click(       
+	            function() {       
+	                $(this).hide().attr('src',       
+	                        'Kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();       
+	            })       
+	    // --></mce:script>       
+	                        <br />       
+	                        单击换图片       
+	                    </td>       
+	                    <td valign="top">       
+	                        <form method="POST">       
+	                            <br>       
+	                            验证码::       
+	                            <input type="text" name="kaptchafield">       
+	                            <br />       
+	                            <input type="submit" name="submit">       
+	                        </form>       
+	                    </td>       
+	                </tr>       
+	            </table>       
+	            <br />       
+	            <br />       
+	            <br />       
+	            <br />       
+	            <%       
+	                String c = (String) session       
+	                        .getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);       
+	                String parm = (String) request.getParameter("kaptchafield");       
+	                       
+	                System.out.println(c);       
+	                out.println("Parameter: " + parm + " ? Session Key: " + c + " : ");       
+	               if (c != null && parm != null)       
+	               {       
+	                    if (c.equals(parm))       
+	                   {       
+	                       out.println("<b>true</b>");       
+	                   } else       
+	                   {       
+	                        out.println("<b>false</b>");       
+	                    }       
+	               }       
+	            %>       
+	        </body>       
+	    </html>      

@@ -1,0 +1,388 @@
+	BaseUrl = "http://182.92.10.18:8080/mj"
+
+匹配图片:
+		URL:"/match"
+	        Method: POST
+		Request:
+		(
+		  Content-Type:multipart/form-data;
+		)
+	  	Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		}
+
+		返回：
+		{
+		"picurl":"/home/onglchen/proenv/userlib/TrainDataDirdorm-1.JPG",    //匹配图片url
+		"picname":"dorm-1.JPG",                                             //匹配图名称
+		"status":1                                                          //匹配状态 1 为成功， -1 为失败
+		}
+
+训练图片:
+		URL:"/api/train"
+	        Method: POST
+		返回：
+		{
+            "status": 0,   //状态 0 为成功
+            "body": null,
+            "message": null
+        }
+
+
+上传头像:
+		URL:"/api/picture/headimg"
+	        Method: POST
+		Request:
+		(
+		  Content-Type:multipart/form-data;
+		)
+		URL_parma{
+		 "userId":"1"
+		}
+	  	Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		}
+
+		返回：
+		{
+		"body":"upload/picture/picture_15.jpg",                                             //匹配图路径
+		"status":0                                                          //匹配状态 0 为成功， -1 为失败
+		}
+
+
+
+用户注册:
+		 URL:"/api/user"
+        	  Method: POST
+        	  Request:
+        		  {
+        		   "name":"test",
+           		   "password":"123456"		     //用户密码
+        		  }
+        	  Response:
+        		  {
+            		   "status": 0,		//status  0 成功  1 失败  6 已存在
+                   	   "body": 2		// body 为添加所添加医生的id(主键)
+        		  }
+
+
+用户登录:
+		URL:"/api/user/login"
+		Method:POST
+	  	Request:
+		  {
+		    "name":"test",	//		登录id
+		    "password":"123456"			//密码
+		  }
+		Response:
+		  {
+    		    "status": 0,	//status 0 成功	,  7 用户不存在, 9 密码不正确
+    		    "body": 1		//如成功 则返回 所登录医生的id,  不成功则返回null
+		  }
+
+获取用户列表：
+  		URL:"/api/user/query"
+        Method:POST
+Response:
+{
+    "status": 0,
+    "body": [
+        {
+            "id": 1,
+            "groupId": null,
+            "headImg": "upload/picture/picture_15.jpg",
+            "phoneNumber": null,
+            "nickName": "addf",
+            "name": "test2",
+            "adress": null,
+            "role": null,
+            "status": null,
+            "paymentInformation": null,
+            "qqNumber": null,
+            "keepword1": null,
+            "keepword2": null,
+            "email": null,
+            "keepword3": null
+        }]}
+
+	修改用户信息:
+		URL:"/api/user"
+	        Method: PATCH
+	  	Request:
+		{
+		  "id":"1",			//用户id
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null
+		}
+
+获取图片列表：
+  		URL:"/api/picture/query"
+        Method:POST
+        URL_parmeters
+        {
+			"userId":"1"  //用户id  ,可选项，若传了，查询的是该用户的图片，没传查询的是所有图片。
+        }
+
+        		Response:
+        		  {
+            		    "status": 0,	//status 0 成功
+   		 "body": [
+        {
+            "id": 16,
+            "userId": 1,
+            "videoId": null,
+            "videoobj": null,
+            "belongUserId": null,
+            "belongGroupId": null,
+            "name": "picture_16.jpg",
+            "size": "117.02K",
+            "quality": null,
+            "similitude": null,
+            "url": "upload/picture/picture_16.jpg",
+            "type": "jpg",
+            "status": null,
+            "keepword1": null,
+            "keepword2": null,
+            "keepword3": null,
+            "videoUrl": ""    //视频Url
+        },
+
+  获取视频列表：
+  		URL:"/api/video/query"
+        Method:POST
+        URL_parmeters
+        {
+			"userId":"1"  //用户id  ,可选项，若传了，查询的是该用户的视频，没传查询的是所有视频。
+        }
+
+  Response:
+  {
+	"status": 0,	//status 0 成功	,
+    "body": [
+        {
+            "id": 1,
+            "name": "1.avi",
+            "size": "5.94M",
+            "originUrl": "/upload/video/1.avi",
+            "finalUrl": "/upload/video/1.avi",
+            "videoFormat": null,
+            "audioFormat": "avi",
+            "uploadWay": null,
+            "codeRate": null,
+            "duration": null,
+            "status": null,
+            "keepword1": null,
+            "keepword2": null,
+            "keepword3": null
+        },
+        		  }
+
+   上传图片，视频并关联：
+  		URL:"/api/video/addvideo3"   //最后的url 为 /api/video/addvideo2?pictureId=9&videoId=1&userId=1
+        Method:POST
+		Request:
+		(
+		  Content-Type:multipart/form-data;
+		)
+		Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		}
+        URL_parmeters
+        {
+		    "pictureId":"9",	//		医生登录id
+		    "videoId":"1",			//医生密码
+			"userId":"1"  //用户id
+        }
+		返回：
+		{
+		"status":0                                                          //状态 0 为成功， -1 为失败
+		}
+
+   上传图片，视频并关联：
+  		URL:"/api/video/addvideo2"   //最后的url 为 /api/video/addvideo2?pictureName=xxx&videoName=xxx&userId=1
+        Method:POST
+
+        URL_parmeters
+        {
+		    "pictureName":"xxx",	//		图片名
+		    "videoName":"xxx",			//视频名
+			"userId":"1"  //用户id
+        }
+		返回：
+		{
+		"status":0                                                          //状态 0 为成功， -1 为失败
+		}
+
+
+
+	web端上传图片:
+
+		URL:"/api/picture/upload?userId=xx"
+	    Method: POST
+
+		Request:
+		(
+		  Content-Type:multipart/form-data;
+		)
+	  	Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		}
+        URL_parmeters
+        {
+		    "userId":"9",	//用户id
+        }
+		返回：
+		{
+		"status":0,       //状态 0 为成功， 1 为失败
+		“body”:470 		//图片id
+		}
+
+
+	web端上传视频:
+
+		URL:"/api/video/upload?userId=xx"
+	    Method: POST
+
+		Request:
+		(
+		  Content-Type:multipart/form-data;
+		)
+	  	Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		}
+        URL_parmeters
+        {
+		    "userId":"9",	//用户id
+        }
+		返回：
+		{
+		"status":0,       //状态 0 为成功， 1 为失败
+		“body”:470 		//视频id
+		}
+
+
+
+
+	添加产品:
+		 URL:"/api/mjproduct?userId=xx"
+         Method: POST
+        Request:
+          {
+       	   "picture_id":"234",
+       	   "video_id":"3"		     //用户密码
+       	  }
+        URL_parmeters
+        {
+		    "userId":"9",	//用户id
+        }
+          Response:
+       	  {
+    	   "status": 0,		//status  0 成功  1 失败  6 已存在
+       	   "body": 2		// body 为添加所添加医生的id(主键)
+   		  }
+
+
+  获取产品列表：
+  		URL:"/api/mjproduct/query?userId=xx"
+        Method:POST
+        URL_parmeters
+        {
+			"userId":"1"  //用户id  ,可选项，若传了，查询的是该用户的产品，没传查询的是所有产品。
+        }
+
+  Response:
+  {
+	"status": 0,	//status 0 成功	,
+    "body": [			//产品详情
+{
+            "id": 3,
+            "pictureId": 270,
+            "pictureObj": {	//产品相关的图片
+                "id": 270,
+                "userId": 1,
+                "videoId": 1,
+                "videoobj": {
+                    "id": 1,
+                    "userId": 1,
+                    "name": "llsw.mp4",
+                    "size": "29M",
+                    "originUrl": "/usr/local/nginx/html/llsw.mp4",
+                    "finalUrl": "/files/llsw.mp4",
+                    "videoFormat": "mp4",
+                    "audioFormat": "",
+                    "uploadWay": null,
+                    "codeRate": null,
+                    "duration": null,
+                    "status": null,
+                    "keepword1": null,
+                    "keepword2": null,
+                    "keepword3": null
+                },
+                "belongUserId": null,
+                "belongGroupId": null,
+                "name": "154.jpg",
+                "size": "7.30K",
+                "quality": null,
+                "similitude": null,
+                "url": "/files/154.jpg",
+                "type": "jpg",
+                "status": 1,
+                "keepword1": null,
+                "keepword2": null,
+                "keepword3": null,
+                "videoUrl": "/files/llsw.mp4"
+            },
+            "videoId": 1,
+            "videoObj": {	产品相关的视频
+                "id": 1,
+                "userId": 1,
+                "name": "llsw.mp4",
+                "size": "29M",
+                "originUrl": "/usr/local/nginx/html/llsw.mp4",
+                "finalUrl": "/files/llsw.mp4",
+                "videoFormat": "mp4",
+                "audioFormat": "",
+                "uploadWay": null,
+                "codeRate": null,
+                "duration": null,
+                "status": null,
+                "keepword1": null,
+                "keepword2": null,
+                "keepword3": null
+            },
+            "userId": 1,
+            "industry": null,
+            "isPrivate": null,
+            "fetchCode": null,
+            "productionPhase": null,
+            "status": null,
+            "makeTime": null,
+            "publishTime": null,
+            "description": null,
+            "keepword1": null,
+            "keepword2": null,
+            "keepword3": null
+        },
+        		  }
+
+
+删除产品:
+		URL:"/api/mjproduct/{id}"
+	        Method: DELETE
+	  	Request:
+		{
+		  "id":"1",			//产品id
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null
+		}

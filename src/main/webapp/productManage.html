@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>视频管理</title>
+    <!--<link href="css/default.css" rel="stylesheet" type="text/css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="js/themes/icon.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="css/img_manage.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/productManage.css" />
+    <!--<script type="text/javascript" src="js/jQuery.easyui.js"></script>-->
+</head>
+<body>
+<button id="check-picture" class="btn btn-success btn-sm">训练图片</button>
+<div class="allproduct table-wrapper">
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th >预览</th>
+            <th>产品ID</th>
+            <th>产品名称</th>
+            <th>产品描述</th>
+            <th>点击量</th>
+            <th>创建时间</th>
+            <th>是否训练</th>
+            <th>产品预览</th>
+            <th>图片ID</th>
+            <th>视频ID</th>
+            <th>选择链接视频</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<!--表格内容模板-->
+<div id="productTable" style="display: none">
+    <table>
+        <tbody>
+            <tr>
+                <td ><img style = "width:50px; height:50px;"></td>
+                <td class="productId">153</td>
+                <td class="oldTitle">1111</td>
+                <td class="oldIntro">1111</td>
+                <td>0</td>
+                <td>2015-12-31 16:26:36</td>
+                <td>未训练</td>
+                <td>
+                    <button class="photoModal btn btn-warning btn-xs" data-name="photo">图片</button>
+                    <button class="videoModal btn btn-primary btn-xs" data-name="video">视频</button>
+                </td>
+                <td class="pictureId">892</td>
+                <td class="videoID">314</td>
+                <td><button class="targetModal btn btn-primary  btn-xs" data-name="target">选择链接视频</button></td>
+                <td><a class="watch-product btn btn-success btn-xs">查看</a>
+                    <button class="deleteProduct btn btn-danger btn-xs">删除</button>
+                    <button class="modifyModal btn btn-warning btn-xs" >修改</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--修改产品模板
+<div id="modifyForm">
+    <form class="form-horizontal">
+        <div class="form-group" >
+            <label for="productName" class="col-sm-3 control-label">产品名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="productName" placeholder="不得为空">
+            </div>
+            <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+        </div>
+        <div class="form-group">
+            <label for="productIntro" class="col-sm-3 control-label">产品描述</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="productIntro" placeholder="不得为空">
+            </div>
+            <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+        </div>
+    </form>
+</div>-->
+
+<div class="modal fade" id="Modification" tabindex="-1" role="dialog" aria-labelledby="ModificationLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ModificationLabel">修改产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group" >
+                        <label for="productName" class="col-sm-3 control-label">产品名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="productName" placeholder="不得为空">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="productIntro" class="col-sm-3 control-label">产品描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="productIntro" placeholder="不得为空">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="web-url" class="col-sm-3 control-label">网页</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="webUrl" id="web-url" placeholder="不得为空">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="web-video" class="col-sm-3 control-label">网页视频</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="webVideoUrl" id="web-video" placeholder="不得为空">
+                        </div>
+                        <p class="status" style="font-size: 12px;margin-left: 400px;color: green">*提示：若未修改则为原值</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="confirm btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ModalLabel">title</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="confirm btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/productManage.js"></script>
+</body>
+</html>

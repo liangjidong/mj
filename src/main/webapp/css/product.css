@@ -1,0 +1,31 @@
+.header h6 {
+    margin: 0;
+    padding: .8em 0;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
+.product-form {
+    margin-top: 2em;
+}
+
+.product-form .btn-primary[disabled] {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+.product-form > div[data-product-class] {
+    display: none;
+}
+
+.product-form > div[data-product-class].active {
+    display: block;
+}
+
+.product-form .status {
+    margin: 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: red;
+}

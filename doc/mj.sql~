@@ -1,0 +1,286 @@
+-- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: mj
+-- ------------------------------------------------------
+-- Server version	5.5.40-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `group`
+--
+DROP DATABASE IF EXISTS mj;
+CREATE DATABASE mj;
+use mj
+
+DROP TABLE IF EXISTS `group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group` (
+  `id` int(11) NOT NULL COMMENT '用户组id',
+  `group_name` varchar(100) DEFAULT NULL COMMENT '用户组名称',
+  `permission` int(11) DEFAULT NULL COMMENT '用户组权限（用相应数字对应相关权限）',
+  `status` int(11) DEFAULT NULL COMMENT '用户组状态',
+  `keepword1` varchar(100) DEFAULT NULL,
+  `keepword2` varchar(100) DEFAULT NULL,
+  `keepword3` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group`
+--
+
+LOCK TABLES `group` WRITE;
+/*!40000 ALTER TABLE `group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) DEFAULT NULL COMMENT '信息类型',
+  `detail` varchar(100) DEFAULT NULL COMMENT '信息详情',
+  `if_feedback` int(11) DEFAULT NULL COMMENT '消息是否需要用户反馈（0--不需要，1--需要）',
+  `feedback_place` varchar(100) DEFAULT NULL COMMENT '用户反馈到的位置',
+  `related_service` varchar(100) DEFAULT NULL COMMENT '相关业务',
+  `status` int(11) DEFAULT NULL COMMENT '信息状态',
+  `keepword1` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword2` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword3` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mjproduct`
+--
+
+DROP TABLE IF EXISTS `mjproduct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mjproduct` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品id',
+  `picture_id` int(11) DEFAULT NULL COMMENT '图片id',
+  `video_id` int(11) DEFAULT NULL COMMENT '视频id',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `industry` varchar(100) DEFAULT NULL COMMENT '所属行业',
+  `is_private` int(11) DEFAULT NULL COMMENT '是否私有（0--非私有，若为私有，该值为私有者的id）',
+  `fetch_code` varchar(100) DEFAULT NULL COMMENT '产品提取码',
+  `production_phase` int(11) DEFAULT NULL COMMENT '制作阶段（1--上传，3--审核，5--发布）',
+  `status` int(11) DEFAULT NULL COMMENT '产品状态',
+  `make_time` timestamp NULL DEFAULT NULL COMMENT '产品制作时间',
+  `publish_time` timestamp NULL DEFAULT NULL COMMENT '发布时间',
+  `description` varchar(100) DEFAULT NULL COMMENT '产品描述',
+  `keepword1` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword2` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword3` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  PRIMARY KEY (`id`),
+  KEY `fk_mjproduct_picture_1` (`picture_id`),
+  KEY `fk_mjproduct_video_1` (`video_id`),
+  KEY `fk_mjproduct_user_1` (`user_id`),
+  CONSTRAINT `fk_mjproduct_picture_1` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`),
+  CONSTRAINT `fk_mjproduct_user_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_mjproduct_video_1` FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mjproduct`
+--
+
+LOCK TABLES `mjproduct` WRITE;
+/*!40000 ALTER TABLE `mjproduct` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mjproduct` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `picture`
+--
+
+DROP TABLE IF EXISTS `picture`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `picture` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `belong_user_id` int(11) DEFAULT NULL COMMENT '图片归属用户id(若id=0则代表图片归属用户组；不为0则为归属用户id)',
+  `belong_group_id` int(11) DEFAULT NULL COMMENT '图片归属用户id(若id=0则代表图片归属用户组；不为0则为归属用户id)',
+  `name` varchar(100) DEFAULT NULL COMMENT '图片名',
+  `size` varchar(100) DEFAULT NULL COMMENT '图片大小',
+  `quality` int(11) DEFAULT NULL COMMENT '图片质量（是否可用）',
+  `similitude` int(11) DEFAULT NULL COMMENT '图片相似性',
+  `url` varchar(100) DEFAULT NULL COMMENT '图片路径',
+  `type` varchar(100) DEFAULT NULL COMMENT '图片类型',
+  `status` int(11) DEFAULT NULL COMMENT '图片状态',
+  `keepword1` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword2` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword3` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `picture`
+--
+
+LOCK TABLES `picture` WRITE;
+/*!40000 ALTER TABLE `picture` DISABLE KEYS */;
+INSERT INTO `picture` VALUES (1,NULL,NULL,'gcc??1.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `picture` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `picture_group_share`
+--
+
+DROP TABLE IF EXISTS `picture_group_share`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `picture_group_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片用户组分享关系id',
+  `picture_id` int(11) DEFAULT NULL COMMENT '图片id',
+  `group_id` int(11) DEFAULT NULL COMMENT '用户组id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `picture_group_share`
+--
+
+LOCK TABLES `picture_group_share` WRITE;
+/*!40000 ALTER TABLE `picture_group_share` DISABLE KEYS */;
+/*!40000 ALTER TABLE `picture_group_share` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `picture_user_share`
+--
+
+DROP TABLE IF EXISTS `picture_user_share`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `picture_user_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片用户分享关系id',
+  `picture_id` int(11) DEFAULT NULL COMMENT '图片id',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `picture_user_share`
+--
+
+LOCK TABLES `picture_user_share` WRITE;
+/*!40000 ALTER TABLE `picture_user_share` DISABLE KEYS */;
+/*!40000 ALTER TABLE `picture_user_share` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) DEFAULT NULL COMMENT '用户组id',
+  `phone_number` varchar(100) DEFAULT NULL COMMENT '电话号码',
+  `nick_name` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `name` varchar(100) DEFAULT NULL COMMENT '姓名',
+  `adress` varchar(100) DEFAULT NULL COMMENT '地址',
+  `password` varchar(100) DEFAULT NULL COMMENT '密码',
+  `role` int(11) DEFAULT NULL COMMENT '角色（不同数字对应不同类型的用户，具体要看总共有多少种类型的用户）',
+  `status` int(11) DEFAULT NULL COMMENT '状态',
+  `payment_information` varchar(100) DEFAULT NULL COMMENT '用户支付相关信息',
+  `qq_number` varchar(100) DEFAULT NULL COMMENT '用户qq号',
+  `keepword1` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword2` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `email` varchar(100) DEFAULT NULL COMMENT '用户邮箱',
+  `keepword3` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,NULL,NULL,'addf','test2',NULL,'e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,NULL,NULL,'update','test23',NULL,'e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,NULL,NULL,'addf','test2',NULL,'e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,NULL,NULL,'addf','test223',NULL,'e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,NULL,NULL,'addf','test223',NULL,'e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video`
+--
+
+DROP TABLE IF EXISTS `video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '视频名字',
+  `size` varchar(100) DEFAULT NULL COMMENT '视频大小',
+  `origin_url` varchar(100) DEFAULT NULL COMMENT '源视频路径',
+  `final_url` varchar(100) DEFAULT NULL COMMENT '最终视频路径',
+  `video_format` varchar(100) DEFAULT NULL COMMENT '视频格式',
+  `audio_format` varchar(255) DEFAULT NULL COMMENT '音频格式',
+  `upload_way` varchar(100) DEFAULT NULL COMMENT '上传途径',
+  `code_rate` varchar(100) DEFAULT NULL COMMENT '码率',
+  `duration` varchar(100) DEFAULT NULL COMMENT '视频时长',
+  `status` int(11) DEFAULT NULL COMMENT '视频状态',
+  `keepword1` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword2` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  `keepword3` varchar(100) DEFAULT NULL COMMENT '保留关键字',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video`
+--
+
+LOCK TABLES `video` WRITE;
+/*!40000 ALTER TABLE `video` DISABLE KEYS */;
+/*!40000 ALTER TABLE `video` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-05-22 16:17:09

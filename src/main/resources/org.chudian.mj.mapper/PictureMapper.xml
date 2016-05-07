@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chudian.mj.mapper.PictureMapper" >
+  <resultMap id="BaseResultMap" type="org.chudian.mj.bean.Picture" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="video_id" property="videoId" jdbcType="INTEGER" />
+    <result column="belong_user_id" property="belongUserId" jdbcType="INTEGER" />
+    <result column="belong_group_id" property="belongGroupId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="quality" property="quality" jdbcType="INTEGER" />
+    <result column="similitude" property="similitude" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="keepword1" property="keepword1" jdbcType="VARCHAR" />
+    <result column="keepword2" property="keepword2" jdbcType="VARCHAR" />
+    <result column="keepword3" property="keepword3" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />  
+	<result column="threed_id" property="threedId" jdbcType="INTEGER" />
+	<result column="reality_type" property="realityType" jdbcType="INTEGER" />
+    <result column="track_url" property="trackUrl" jdbcType="VARCHAR" />
+    <association property="videoObj" column="video_id" javaType="Video" select="org.chudian.mj.mapper.VideoMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, video_id, belong_user_id, belong_group_id, name, size, quality, similitude, 
+    url, type, status, keepword1, keepword2, keepword3, createtime,threed_id,reality_type,track_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from picture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.chudian.mj.bean.Picture" useGeneratedKeys="true" keyProperty="id">
+   insert into picture (id, user_id, video_id,
+      belong_user_id, belong_group_id, name,
+      size, quality, similitude,
+      url, type, status,
+      keepword1, keepword2, keepword3,
+      createtime, threed_id, reality_type,
+      track_url)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{videoId,jdbcType=INTEGER},
+      #{belongUserId,jdbcType=INTEGER}, #{belongGroupId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{size,jdbcType=VARCHAR}, #{quality,jdbcType=INTEGER}, #{similitude,jdbcType=INTEGER},
+      #{url,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{keepword1,jdbcType=VARCHAR}, #{keepword2,jdbcType=VARCHAR}, #{keepword3,jdbcType=VARCHAR},
+      #{createtime,jdbcType=TIMESTAMP}, #{threedId,jdbcType=INTEGER}, #{realityType,jdbcType=INTEGER},
+      #{trackUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.chudian.mj.bean.Picture" >
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="videoId != null" >
+        video_id,
+      </if>
+      <if test="belongUserId != null" >
+        belong_user_id,
+      </if>
+      <if test="belongGroupId != null" >
+        belong_group_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="similitude != null" >
+        similitude,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="keepword1 != null" >
+        keepword1,
+      </if>
+      <if test="keepword2 != null" >
+        keepword2,
+      </if>
+      <if test="keepword3 != null" >
+        keepword3,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="threedId != null" >
+        threed_id,
+      </if>
+      <if test="realityType != null" >
+        reality_type,
+      </if>
+      <if test="trackUrl != null" >
+        track_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=INTEGER},
+      </if>
+      <if test="belongUserId != null" >
+        #{belongUserId,jdbcType=INTEGER},
+      </if>
+      <if test="belongGroupId != null" >
+        #{belongGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="similitude != null" >
+        #{similitude,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="keepword1 != null" >
+        #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        #{keepword3,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="threedId != null" >
+        #{threedId,jdbcType=INTEGER},
+      </if>
+      <if test="realityType != null" >
+        #{realityType,jdbcType=INTEGER},
+      </if>
+      <if test="trackUrl != null" >
+        #{trackUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.chudian.mj.bean.Picture" >
+    update picture
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="videoId != null" >
+        video_id = #{videoId,jdbcType=INTEGER},
+      </if>
+      <if test="belongUserId != null" >
+        belong_user_id = #{belongUserId,jdbcType=INTEGER},
+      </if>
+      <if test="belongGroupId != null" >
+        belong_group_id = #{belongGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="similitude != null" >
+        similitude = #{similitude,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="keepword1 != null" >
+        keepword1 = #{keepword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword2 != null" >
+        keepword2 = #{keepword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keepword3 != null" >
+        keepword3 = #{keepword3,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="threedId != null" >
+        threed_id = #{threedId,jdbcType=INTEGER},
+      </if>
+      <if test="realityType != null" >
+        reality_type = #{realityType,jdbcType=INTEGER},
+      </if>
+      <if test="trackUrl != null" >
+        track_url = #{trackUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.chudian.mj.bean.Picture" >
+   update picture
+    set user_id = #{userId,jdbcType=INTEGER},
+      video_id = #{videoId,jdbcType=INTEGER},
+      belong_user_id = #{belongUserId,jdbcType=INTEGER},
+      belong_group_id = #{belongGroupId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=INTEGER},
+      similitude = #{similitude,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      keepword1 = #{keepword1,jdbcType=VARCHAR},
+      keepword2 = #{keepword2,jdbcType=VARCHAR},
+      keepword3 = #{keepword3,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      threed_id = #{threedId,jdbcType=INTEGER},
+      reality_type = #{realityType,jdbcType=INTEGER},
+      track_url = #{trackUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="org.chudian.mj.bean.Picture"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into picture (id, user_id, video_id,
+    belong_user_id, belong_group_id, name,
+    size, quality, similitude,
+    url, type, status,
+    keepword1, keepword2, keepword3, createtime
+    )
+    values
+    <foreach collection="list" item="item" index="index"
+             separator=",">
+    (#{item.id,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, #{item.videoId,jdbcType=INTEGER},
+    #{item.belongUserId,jdbcType=INTEGER}, #{item.belongGroupId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR},
+    #{item.size,jdbcType=VARCHAR}, #{item.quality,jdbcType=INTEGER}, #{item.similitude,jdbcType=INTEGER},
+    #{item.url,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER},
+    #{item.keepword1,jdbcType=VARCHAR}, #{item.keepword2,jdbcType=VARCHAR}, #{item.keepword3,jdbcType=VARCHAR},#{item.createtime,jdbcType=TIMESTAMP}
+    )
+    </foreach>
+  </insert>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from picture
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="queryPictures" parameterType="org.chudian.mj.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM picture 
+    <include refid="where_with_condition" />  
+    ORDER BY createtime  DESC
+    LIMIT #{firstRow}, #{maxRow}  
+  </select>
+  <select id="countPictures" parameterType="org.chudian.mj.common.QueryBase" resultType="long">
+    SELECT COUNT(id) FROM picture
+    
+    <include refid="where_with_condition" />
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.id != null and parameters.id != '' ">AND id = #{parameters.id}
+      </if>
+      <if test="parameters.userId != null and parameters.userId != '' ">AND user_id = #{parameters.userId}
+      </if>
+    </trim>
+  </sql>
+</mapper>

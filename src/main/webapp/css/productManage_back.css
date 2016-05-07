@@ -1,0 +1,67 @@
+th{
+    text-align: center;
+}
+#for-add-product tbody{
+    position: relative;
+}
+#for-add-photo{
+    position: absolute;
+    left: 30px;
+    top: 80px;
+}
+#for-add-video{
+    position: absolute;
+    left: 30px;
+    top: 200px;
+}
+#submit-product{
+    position: absolute;
+    left: 100px;
+    top: 530px;
+    width: 150px;
+}
+.product-id{
+    position: absolute;
+    left: 25px;
+    top: 320px;
+}
+.product-mes{
+    position: absolute;
+    left: 25px;
+    top: 430px;
+}
+.photoId,.videoId{
+    margin-left: 160px;
+    color: #0080C0;
+    margin-top: 6px;
+}
+.product-id .status,.product-mes .status{
+    color: red;
+    margin-left: 250px;
+}
+#submit-photo,#submit-video{
+    margin: 20px 0 10px 10px;
+    height:25px;
+    line-height: 25px;
+    padding: 0 10px;
+}
+.product-picture{
+    width:70px;
+    height: 50px;
+}
+#check-picture{
+    margin: 20px;
+}
+.watch-product{
+    margin-right: 10px;
+}
+.proWatchPhoto:hover{
+    cursor: pointer;
+    background-color: #d3d3d3;
+}
+.pre-WatchPhoto{
+    width: 555px;
+}
+
+
+
